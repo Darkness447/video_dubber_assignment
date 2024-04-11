@@ -2,6 +2,7 @@
 import { TextInput, Button, Group, Box, FileInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
+import { postData } from '../data/Mutation';
 
 
 export function CreateNewUser() {
@@ -20,9 +21,9 @@ export function CreateNewUser() {
         },
     });
 
-    const handleForm = (formData: any) => {
-        formData.pic = pic;
-        
+    const handleForm = async (formData: any) => {
+        formData.avatar = pic;
+        const response = await postData(formData)
     }
 
     const postDetails = (pics: any) => {

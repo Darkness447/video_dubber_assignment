@@ -5,7 +5,7 @@ import { Table, Checkbox, ScrollArea, Group, Avatar, Text, rem } from '@mantine/
 import classes from './UserTable.module.css';
 
 
-interface IDataProps {
+export interface IDataProps {
   id: string,
   avatar?: string,
   email: string,
@@ -16,8 +16,7 @@ interface IDataProps {
 
 
 export function UserTable({ data }: { data: IDataProps[] }) {
-  const [selection, setSelection] = useState(['1']);
-  console.log(selection)
+  const [selection, setSelection] = useState(['']);
   const toggleRow = (id: string) =>
     setSelection((current) =>
       current.includes(id) ? current.filter((item) => item !== id) : [...current, id]
