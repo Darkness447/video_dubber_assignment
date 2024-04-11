@@ -3,6 +3,7 @@ import { TextInput, Button, Group, Box, FileInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
 import { postData } from '../data/Mutation';
+import { IconFileUpload } from '@tabler/icons-react';
 import { Bounce, toast } from 'react-toastify';
 
 export interface FormValues {
@@ -45,6 +46,8 @@ export function CreateNewUser() {
             transition: Bounce,
         });
     }
+
+    const icon = <IconFileUpload style={{ width: "2rem", height: "2rem" }} stroke={1.2} />
 
     const postDetails = (pics: any) => {
         if (pics === undefined) {
@@ -102,8 +105,9 @@ export function CreateNewUser() {
                         withAsterisk
                         label="upload Image"
                         className='w-full'
-                        placeholder="dark.png"
+                        placeholder="click to upload"
                         onChange={postDetails}
+                        rightSection={icon}
                     />
 
                 </div>
