@@ -1,5 +1,5 @@
 "use client"
-import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core';
+import { TextInput, Button, Group, Box, FileInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
 
@@ -21,7 +21,8 @@ export function CreateNewUser() {
     });
 
     const handleForm = (formData: any) => {
-        console.log(formData)
+        formData.pic = pic;
+        
     }
 
     const postDetails = (pics: any) => {
@@ -66,7 +67,13 @@ export function CreateNewUser() {
                     placeholder="John Doe"
                     {...form.getInputProps('name')}
                 />
-                
+                <FileInput
+                    withAsterisk
+                    label="upload Image"
+                    placeholder="dark.png"
+                    onChange={postDetails}
+
+                />
                 <Group justify="flex-end" mt="md">
                     <Button type="submit">Submit</Button>
                 </Group>
