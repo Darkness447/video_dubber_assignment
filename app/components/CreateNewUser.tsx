@@ -3,6 +3,7 @@ import { TextInput, Button, Group, Box, FileInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
 import { postData } from '../data/Mutation';
+import { Bounce, toast } from 'react-toastify';
 
 export interface FormValues {
     email: string;
@@ -14,7 +15,6 @@ export interface FormValues {
 export function CreateNewUser() {
 
     const [pic, setPic] = useState()
-    const [loading, setLoading] = useState<Boolean>(false);
 
     const form = useForm({
         initialValues: {
@@ -33,6 +33,17 @@ export function CreateNewUser() {
         formData.avatar = pic;
         const response = await postData(formData)
         console.log(response)
+        toast('Wow! user added', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
     }
 
     const postDetails = (pics: any) => {
@@ -40,7 +51,6 @@ export function CreateNewUser() {
             return;
         }
         if (pics.type === "image/jpeg" || pics.type === "image/png") {
-            setLoading(true)
             const data = new FormData();
             data.append("file", pics);
             data.append("upload_preset", "lenses");
@@ -52,11 +62,21 @@ export function CreateNewUser() {
                 .then((res) => res.json())
                 .then((data) => {
                     setPic(data.url.toString());
+                    toast('Image uploaded', {
+                        position: "bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
                 })
                 .catch((err) => {
                     console.log(err);
                 });
-            setLoading(false)
         } else {
             return;
         }
@@ -88,7 +108,7 @@ export function CreateNewUser() {
 
                 </div>
                 <Group justify="flex-end" mt="md">
-                    {loading ? <div className='h-5 w-5 border-blue-400 border-t-4 rounded-2xl animate-spin' > </div> : <Button type="submit">Add User</Button>}
+                    <Button type="submit">Add User</Button>
                 </Group>
             </form>
         </Box>
