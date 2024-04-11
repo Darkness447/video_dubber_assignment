@@ -1,8 +1,9 @@
 'use server'
 
 import { revalidateTag } from "next/cache";
+import { FormValues } from "../components/CreateNewUser";
 
-export async function postData(data: any) {
+export async function postData(data: FormValues) {
 
     data.createdAt = new Date()
 
