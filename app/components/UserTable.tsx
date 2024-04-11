@@ -17,6 +17,7 @@ interface IDataProps {
 
 export function UserTable({ data }: { data: IDataProps[] }) {
   const [selection, setSelection] = useState(['1']);
+  console.log(selection)
   const toggleRow = (id: string) =>
     setSelection((current) =>
       current.includes(id) ? current.filter((item) => item !== id) : [...current, id]
@@ -46,7 +47,7 @@ export function UserTable({ data }: { data: IDataProps[] }) {
   });
 
   return (
-    <ScrollArea>
+    <ScrollArea h={300}>
       <Table miw={800} verticalSpacing="sm">
         <Table.Thead>
           <Table.Tr>

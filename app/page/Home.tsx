@@ -1,14 +1,26 @@
 "use client"
+import { useEffect, useState } from "react";
 import { UserTable } from "../components/UserTable";
 import { getUserData } from "../data/queries";
+import { CreateNewUser } from "../components/CreateNewUser";
 
-export default async function Home() {
+export default function Home() {
+    const [userData, setData] = useState([])
 
-    const data = await getUserData();
+    useEffect(() => {
+
+        async function fetchData() {
+            const data = await getUserData();
+            setData(data);
+        }
+
+        fetchData();
+    }, [])
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <UserTable data={data} />
+        <main className="flex flex-col p-10">
+            <UserTable data={userData} />
+            <CreateNewUser/>
         </main>
     );
 }
