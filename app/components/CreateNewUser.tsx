@@ -16,6 +16,7 @@ export interface FormValues {
 export function CreateNewUser() {
 
     const [pic, setPic] = useState()
+    const [loading, setLoading] = useState(false)
 
     const form = useForm({
         initialValues: {
@@ -49,7 +50,9 @@ export function CreateNewUser() {
 
     const icon = <IconFileUpload style={{ width: "2rem", height: "2rem" }} stroke={1.2} />
 
-    const postDetails = (pics: any) => {
+    const postDetails = async (pics: any) => {
+        setLoading(true);
+
         if (pics === undefined) {
             return;
         }
@@ -65,6 +68,7 @@ export function CreateNewUser() {
                 .then((res) => res.json())
                 .then((data) => {
                     setPic(data.url.toString());
+                    setLoading(false)
                     toast('Image uploaded', {
                         position: "bottom-right",
                         autoClose: 3000,
@@ -79,10 +83,12 @@ export function CreateNewUser() {
                 })
                 .catch((err) => {
                     console.log(err);
+                    setLoading(false)
                 });
         } else {
             return;
         }
+
     };
 
     return (
@@ -112,7 +118,7 @@ export function CreateNewUser() {
 
                 </div>
                 <Group justify="flex-end" mt="md">
-                    <Button type="submit">Add User</Button>
+                    <Button type="submit" disabled={loading}>Add User</Button>
                 </Group>
             </form>
         </Box>
